@@ -1,0 +1,137 @@
+﻿@{
+    /**/
+
+    ViewBag.Title = "Home Page";
+    var listFeatureFilm = ViewBag.ListFeatureFilm as IEnumerable<Website.ViewModel.MoviesViewModel>;
+    var listSeriesMovie = ViewBag.ListSeriesMovie as IEnumerable<Website.ViewModel.MoviesViewModel>;
+    var moviesSeen = ViewBag.MoviesSeen as IEnumerable<Website.ViewModel.MoviesViewModel>;
+    var favoriteMovies = ViewBag.FavoriteMovies as IEnumerable<Website.ViewModel.MoviesViewModel>;
+}
+
+<!-- pop-up-box -->
+
+<script>
+    $(document).ready(function () {
+        $('.w3_play_icon,.w3_play_icon1,.w3_play_icon2').magnificPopup({
+            type: 'inline',
+            fixedContentPos: false,
+            fixedBgPos: true,
+            overflowY: 'auto',
+            closeBtnInside: true,
+            preloader: false,
+            midClick: true,
+            removalDelay: 300,
+            mainClass: 'my-mfp-zoom-in'
+        });
+
+    });
+</script>
+<!-- //list movie news-->
+<!-- Trailer-->
+@Html.Action("NewestTrailers", "Trailers")
+<!--Trailer-->
+<!-- banner-bottom -->
+<div class="general">
+    <h4 class="latest-text w3_latest_text">Phim Hot Gần Đây</h4>
+    <div class="container">
+        <a href="/moviehot" style="color: #ff8d1b; float: right;">Xem thêm >>></a>
+        <br />
+        @Html.Action("ViewSlideMovieHot", "Base")
+    </div>
+</div>
+<!-- //banner-bottom -->
+<!-- Favorite Movies -->
+@if (favoriteMovies != null && favoriteMovies.Count() > 0)
+{
+    <div class="general">
+        <h4 class="latest-text w3_latest_text">Phim bạn đã thích</h4>
+        <div class="container">
+            <a href="#" style="color: #ff8d1b; float: right;">Xem thêm >>></a>
+            <br />
+            <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
+                <div id="myTabContent" class="tab-content">
+                    <div role="tabpanel" class="tab-pane fade active in" id="home" aria-labelledby="home-tab">
+                        <div class="w3_agile_featured_movies">
+                            @foreach (var item in favoriteMovies)
+                            {
+                                @Html.Partial("_PartialMovie", item)
+                            }
+                            <div class="clearfix"> </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<!-- //Favorite Movies -->
+<!-- Movie has been seen -->
+@if (moviesSeen != null && moviesSeen.Count() > 0)
+{
+    <div class="general">
+        <h4 class="latest-text w3_latest_text">Phim bạn đã xem</h4>
+        <div class="container">
+            <a href="#" style="color: #ff8d1b; float: right;">Xem thêm >>></a>
+            <br />
+            <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
+                <div id="myTabContent" class="tab-content">
+                    <div role="tabpanel" class="tab-pane fade active in" id="home" aria-labelledby="home-tab">
+                        <div class="w3_agile_featured_movies">
+                            @foreach (var item in moviesSeen)
+                            {
+                                @Html.Partial("_PartialMovie", item)
+                            }
+                            <div class="clearfix"> </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<!-- // Movie has been seen -->
+<!-- Feature Film -->
+<div class="general">
+    <h4 class="latest-text w3_latest_text">Phim Lẻ</h4>
+    <div class="container">
+        <a href="/featurefilm" style="color: #ff8d1b; float: right;">Xem thêm >>></a>
+        <br />
+        <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
+            <div id="myTabContent" class="tab-content">
+                <div role="tabpanel" class="tab-pane fade active in" id="home" aria-labelledby="home-tab">
+                    <div class="w3_agile_featured_movies">
+                        @foreach (var item in listFeatureFilm)
+                        {
+                            @Html.Partial("_PartialMovie", item)
+                        }
+                        <div class="clearfix"> </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- //Feature Film -->
+<!-- Series TV -->
+<div class="general">
+    <h4 class="latest-text w3_latest_text">Phim Bộ</h4>
+    <div class="container">
+        <a href="/seriestv" style="color: #ff8d1b; float: right;">Xem thêm >>></a>
+        <br />
+        <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
+            <div id="myTabContent" class="tab-content">
+                <div role="tabpanel" class="tab-pane fade active in" id="home" aria-labelledby="home-tab">
+                    <div class="w3_agile_featured_movies">
+                        @foreach (var item in listSeriesMovie)
+                        {
+                            @Html.Partial("_PartialMovie", item)
+                        }
+                        <div class="clearfix"> </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- //Series TV -->

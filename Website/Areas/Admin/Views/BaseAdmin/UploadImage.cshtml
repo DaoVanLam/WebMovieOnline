@@ -1,0 +1,35 @@
+﻿@{
+    Layout = null;
+}
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+
+
+@using (Html.BeginForm("UploadImage", "BaseAdmin", FormMethod.Post, new { enctype = "multipart/form-data", @name = "formupload" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        @Html.Label("Upload Image", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type='file' name="image" id="upload" onchange="ShowImagePreview(this)" />
+        </div>
+    </div>
+    <img id="imagePreview" />
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <button type="submit">Upload</button>
+        </div>
+    </div>
+}
+
+
+<script>
+    function ShowImagePreview(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#imagePreview').prop('src', e.target.result);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
